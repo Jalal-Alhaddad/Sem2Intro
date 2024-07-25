@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users Information</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .user {
+      border: 1px solid #ddd;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .user h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .user p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Users Information</h1>
+  <div id="users-container"></div>
+
+  <script>
+    // Define the URL for the JSONPlaceholder API
+    const apiUrl = 'https://jsonplaceholder.typicode.com/users';
+
+    // Function to retrieve and display users
+    async function fetchAndDisplayUsers() {
+      try {
+        // Fetch the data from the API
+        const response = await fetch(apiUrl);
+
+        // Check if the response is ok (status in the range 200-299)
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+
+        // Parse the JSON data
+        const users = await response.json();
+
+        // Get the container element
+        const container = document.getElementById('users-container');
+
+        // Display the users
+        users.forEach(user => {
+          const userDiv = document.createElement('div');
+          userDiv.className = 'user';
+
+          userDiv.innerHTML = `
+            <h2>${user.name}</h2>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Phone:</strong> ${user.phone}</p>
+          `;
+
+          container.appendChild(userDiv);
+        });
+      } catch (error) {
+        // Log any errors
+        console.error('There was a problem with the fetch operation:', error);
+      }
+    }
+
+    // Call the function to fetch and display users
+    fetchAndDisplayUsers();
+  </script>
+</body>
+
+</html>

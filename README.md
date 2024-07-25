@@ -1,2 +1,1 @@
-# Sem2Intro
-Sem2Intro
+# Semester 2 Introduction
